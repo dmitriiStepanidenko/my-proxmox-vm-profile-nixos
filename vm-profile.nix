@@ -5,9 +5,8 @@
   lib,
   system,
   ...
-}: let 
-        pubKeys = lib.filesystem.listFilesRecursive ./pub_keys;
-
+}: let
+  pubKeys = lib.filesystem.listFilesRecursive ./pub_keys;
 in {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -36,6 +35,16 @@ in {
       };
     };
 
+    networking.firewall = {
+      interfaces.wg0 = {
+        allowedUDPPorts = [
+          9002
+        ];
+        allowedTCPPorts = [
+          9002
+        ];
+      };
+    };
     #Provide a default hostname
     networking.hostName = lib.mkDefault "base";
     services = {
@@ -54,6 +63,15 @@ in {
       fail2ban = {
         enable = true;
         maxretry = 5;
+      };
+      prometheus = {
+        exporters = {
+          node = {
+            enable = true;
+            enabledCollectors = ["systemd"];
+            port = 9002;
+          };
+        };
       };
 
       # Enable ssh
@@ -92,7 +110,8 @@ in {
       users = {
         "dmitrii".uid = 1000;
         "dmitrii".isNormalUser = true;
-        "dmitrii".group = "dmitrii"; "dmitrii".extraGroups = ["wheel" "docker" "networkmanager"];
+        "dmitrii".group = "dmitrii";
+        "dmitrii".extraGroups = ["wheel" "docker" "networkmanager"];
         "dmitrii".openssh.authorizedKeys.keys = lib.lists.forEach pubKeys (key: builtins.readFile key);
         "root".openssh.authorizedKeys.keys = lib.lists.forEach pubKeys (key: builtins.readFile key);
       };
@@ -112,4 +131,3 @@ in {
     #services.cloud-init.network.enable = true;
   };
 }
-
