@@ -84,7 +84,40 @@ in {
       openssh.openFirewall = true;
 
       cloud-init.enable = true;
+      alloy = {
+        enable = true;
+      };
     };
+    environment.etc."alloy/config.alloy" = {
+      text = ''
+        local.file_match "local_files" {
+          path_targets = [{"__path__" = "/var/log/*.log"}]
+          sync_period = "5s"
+        }
+        loki.source.journal "${config.networking.hostName}" {
+          forward_to = [loki.process.filter_logs.receiver]
+        }
+        loki.source.file "log_scrape" {
+          targets    = local.file_match.local_files.targets
+          forward_to = [loki.process.filter_logs.receiver]
+          tail_from_end = true
+        }
+        loki.process "filter_logs" {
+            stage.drop {
+                source = ""
+                expression  = ".*Connection closed by authenticating user root"
+                drop_counter_reason = "noisy"
+              }
+            forward_to = [loki.write.grafana_loki.receiver]
+        }
+        loki.write "grafana_loki" {
+            endpoint {
+              url = "http://10.252.1.11:3030/loki/api/v1/push"
+            }
+          }
+      '';
+    };
+
     boot = {
       # Use the boot drive for grub
       loader.grub.enable = lib.mkDefault true;
