@@ -34,10 +34,10 @@ in {
         experimental-features = ["nix-command" "flakes"];
       };
       settings = {
-        substituters = [
+        extra-substituters = [
           "http://10.252.1.7:55655"
         ];
-        trusted-public-keys = [
+        extra-trusted-public-keys = [
           "10.252.1.7:55655:rI6BFj6y9EApKBw33biImdJ+q5Vn+B238FeM2XkeMSE="
         ];
       };
