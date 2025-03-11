@@ -33,14 +33,6 @@ in {
         trusted-users = ["root" "@wheel" "dmitrii"];
         experimental-features = ["nix-command" "flakes"];
       };
-      settings = {
-        extra-substituters = lib.mkDefault [
-          "http://10.252.1.7:55655"
-        ];
-        extra-trusted-public-keys = lib.mkDefault [
-          "10.252.1.7:55655:rI6BFj6y9EApKBw33biImdJ+q5Vn+B238FeM2XkeMSE="
-        ];
-      };
     };
 
     networking.firewall = {
