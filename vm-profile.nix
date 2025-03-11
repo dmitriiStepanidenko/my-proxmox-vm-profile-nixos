@@ -35,7 +35,7 @@ in {
       };
       settings = {
         substituters = [
-          "http://10.252.7.1:55655"
+          "http://10.252.1.7:55655"
         ];
         trusted-public-keys = [
           "10.252.1.7:55655:rI6BFj6y9EApKBw33biImdJ+q5Vn+B238FeM2XkeMSE="
