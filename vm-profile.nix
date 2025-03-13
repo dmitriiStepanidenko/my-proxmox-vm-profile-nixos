@@ -36,6 +36,9 @@ in {
     };
 
     networking.firewall = {
+      allowedTCPPorts = [
+        22
+      ];
       interfaces.wg0 = {
         allowedUDPPorts = [
           9002
@@ -83,7 +86,7 @@ in {
 
       openssh.openFirewall = true;
 
-      cloud-init.enable = true;
+      cloud-init.enable = lib.mkDefault true;
       alloy = {
         enable = true;
       };
@@ -161,6 +164,6 @@ in {
     };
 
     system.stateVersion = lib.mkDefault "24.11";
-    services.cloud-init.network.enable = false;
+    services.cloud-init.network.enable = lib.mkDefault false;
   };
 }
