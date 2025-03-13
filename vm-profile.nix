@@ -161,6 +161,6 @@ in {
     };
 
     system.stateVersion = lib.mkDefault "24.11";
-    #services.cloud-init.network.enable = true;
+    services.cloud-init.network.enable = false;
   };
 }
