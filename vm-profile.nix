@@ -134,7 +134,7 @@ in {
       vim # for emergencies
       neovim
       git # for pulling nix flakes
-      python3 # for ansible
+      python39 # for ansible
       htop
       wget
       curl
