@@ -71,7 +71,7 @@ in {
         exporters = {
           node = {
             enable = true;
-            enabledCollectors = ["systemd"];
+            enabledCollectors = ["systemd" "processes"];
             port = 9002;
           };
         };
@@ -134,7 +134,7 @@ in {
       vim # for emergencies
       neovim
       git # for pulling nix flakes
-      #python # for ansible
+      python # for ansible
       htop
       wget
       curl
