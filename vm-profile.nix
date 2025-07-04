@@ -18,10 +18,10 @@ in {
       optimise.automatic = true;
       gc = {
         automatic = true;
-        dates = "5:00";
-        options = "--delete-older-than 7d";
+        dates = lib.mkDefault "5:00";
+        options = lib.mkDefault "--delete-older-than 7d";
       };
-      extraOptions = ''
+      extraOptions = lib.mkDefault ''
         min-free = ${toString (100 * 1024 * 1024)}
         max-free = ${toString (1024 * 1024 * 1024)}
       '';
