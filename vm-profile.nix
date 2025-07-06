@@ -163,7 +163,7 @@ in {
       fsType = "ext4";
     };
 
-    system.stateVersion = lib.mkDefault "24.11";
+    system.stateVersion = lib.mkDefault "25.05";
     services.cloud-init.network.enable = lib.mkDefault false;
   };
 }
