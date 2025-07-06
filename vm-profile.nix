@@ -138,6 +138,8 @@ in {
       htop
       wget
       curl
+
+      ssh-to-age
     ];
 
     # Don't ask for passwords
