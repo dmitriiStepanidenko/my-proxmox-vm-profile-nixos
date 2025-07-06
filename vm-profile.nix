@@ -55,10 +55,10 @@ in {
       qemuGuest.enable = true;
       avahi = {
         # Enable mDNS for `hostname.local` addresses
-        enable = true;
+        enable = lib.mkDefault true;
         nssmdns4 = true;
         publish = {
-          enable = true;
+          enable = lib.mkDefault true;
           addresses = true;
         };
       };
@@ -70,7 +70,7 @@ in {
       prometheus = {
         exporters = {
           node = {
-            enable = true;
+            enable = lib.mkDefault true;
             enabledCollectors = ["systemd" "processes"];
             port = 9002;
           };
@@ -79,7 +79,7 @@ in {
 
       # Enable ssh
       openssh = {
-        enable = true;
+        enable = lib.mkDefault true;
         settings.PasswordAuthentication = false;
         settings.KbdInteractiveAuthentication = false;
       };
@@ -88,7 +88,7 @@ in {
 
       cloud-init.enable = lib.mkDefault true;
       alloy = {
-        enable = true;
+        enable = lib.mkDefault true;
       };
     };
     environment.etc."alloy/config.alloy" = {
