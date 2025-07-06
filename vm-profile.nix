@@ -124,7 +124,7 @@ in {
     boot = {
       # Use the boot drive for grub
       loader.grub.enable = lib.mkDefault true;
-      loader.grub.devices = ["nodev"];
+      loader.grub.devices = lib.mkDefault ["nodev"];
 
       growPartition = lib.mkDefault true;
     };
